@@ -5,17 +5,17 @@
 #define TU 100 
 #define DATA_PIN 9 
 
-#define SPACE false //красное 
-#define DATA true 
-long start_data, start_space; 
-long duration[20]; 
-bool color[20]; 
-int index = 0; 
-int previous = SPACE_LEVEL; 
+//#define SPACE false //красное 
+//#define DATA true 
+//long start_data, start_space; 
+//long duration[20]; 
+//bool color[20]; 
+//int index = 0; 
+//int previous = SPACE_LEVEL; 
 
-String CODES[] = {".-", "--.."}; 
-char LETTERS[] = {'A', 'Z'}; 
-int NLETTERS = 2; 
+String CODES[] = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+char LETTERS[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+int NLETTERS = 27;
 
 void setup() { 
   pinMode(DATA_PIN, OUTPUT); 
@@ -26,13 +26,18 @@ void setup() {
 void loop() { 
 //available() показывает сколько символов пришло 
   if(Serial.available() >= 1){ 
-    char letter = Serial.read(); 
-    for(int iletter; iletter<NLETTERS; iletter++){ 
-      if(letter == LETTERS[iletter]){ 
-        String code = CODES[iletter]; 
-        send_letter(code); 
-      } 
-    } 
+    char letter = Serial.read();
+    if(letter == ' '){
+      send_word();
+    }
+    else{ 
+      for(int iletter; iletter<NLETTERS; iletter++){ 
+        if(letter == LETTERS[iletter]){ 
+          String code = CODES[iletter]; 
+          send_letter(code); 
+        } 
+      }
+    }
   } 
 } 
 
@@ -52,4 +57,10 @@ void send_letter(String code){
     delay(TU); 
   } 
   delay((DASH_DURATION - 1)* TU ); 
+}
+
+void send_word(){
+  digitalWrite(DATA_PIN, SPACE_LEVEL);
+  delay((DOT_DURATION - DASH_DURATION) * TU);
+  Serial.print(" ");
 }
