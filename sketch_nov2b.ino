@@ -1,4 +1,23 @@
- 
+#define DATA_PIN 2
+#define DATA_LEVEL LOW
+#define SPACE_LEVEL HIGH
+#define SPACE false //красное
+#define DATA true
+#define DASH_DURATION 3
+#define DOT_DURATION 1
+#define TU 100
+
+long start_data, start_space;
+long duration[20];
+bool color[20];
+long duration_space[20]; //добавлено
+int index = 0;
+int previous = SPACE_LEVEL;
+String CODES[] = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+char LETTERS[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+// String CODES[] = {".-", "--.."};
+// char LETTERS[] = {'A', 'Z'};
+int NLETTERS = 26; 
 
 void loop() {
   // put your main code here, to run repeatedly:
