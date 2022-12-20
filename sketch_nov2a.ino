@@ -2,6 +2,8 @@
 #define SPACE_LEVEL HIGH 
 #define DASH_DURATION 3 
 #define DOT_DURATION 1 
+#define LETTER_DURATION 3	
+#define WORD_DURATION 7	
 #define TU 100 
 #define DATA_PIN 9 
 
@@ -26,6 +28,7 @@ void setup() {
 void loop() { 
 //available() показывает сколько символов пришло 
   if(Serial.available() >= 1){ 
+    Serial.println(code);
     char letter = Serial.read();
     if(letter == ' '){
       send_word();
@@ -47,20 +50,20 @@ void send_letter(String code){
     char symbol = code[i]; 
     if(symbol == '.'){ 
       digitalWrite(DATA_PIN, DATA_LEVEL); 
-      delay(TU); 
+      delay(DOT_DURATION *TU); 
     } 
-    if(symbol == '-'){ 
+    else{ 
       digitalWrite(DATA_PIN, DATA_LEVEL); 
       delay(DASH_DURATION*TU); 
     } 
     digitalWrite(DATA_PIN, SPACE_LEVEL); 
     delay(TU); 
   } 
-  delay((DASH_DURATION - 1)* TU ); 
+  delay((LETTER_DURATION - 1)* TU ); 
 }
 
 void send_word(){
   digitalWrite(DATA_PIN, SPACE_LEVEL);
-  delay((DOT_DURATION - DASH_DURATION) * TU);
+  delay((WORD_DURATION - LETTER_DURATION) * TU);
   Serial.print(" ");
 }
