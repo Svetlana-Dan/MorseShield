@@ -53,14 +53,14 @@ void decode_letter(){ //обратно декодируем буквы
         } 
       } 
     } 
-    if (isEditing && isEndWord)	// Если мы доставали все буквы из буфера, то
+    if (isEditing && isEndWord)	// Если мы доставали все буквы
     {
-      Serial.print("\n");	// Конец данной передачи
-      index = 0;	// Сброс буфера
-      isEndWord = false;	// Сброс флага
+      Serial.print("\n");	// Конец передачи
+      index = 0;	// Сброс 
+      isEndWord = false;	
     }
   }
-  if (isEditing)	// Если не конец слова, но мы выводили букву, то сброс буфера и сообщения
+  if (isEditing)
   {
   	index = 0;
     message = "";
@@ -76,7 +76,7 @@ void fill_arrays(){  //чтобы буквы приходили полность
     color[index] = SPACE; //красные(расстояние)
     index++; 
   } 
-  if (current == SPACE_LEVEL and previous == DATA_LEVEL){ 
+  else if (current == SPACE_LEVEL and previous == DATA_LEVEL){ 
     isEndWord = false;
     start_space = millis(); 
     duration[index] = int((millis() - start_data + 0.5 * TU) / TU); 
