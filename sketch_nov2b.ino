@@ -31,6 +31,7 @@ void loop() {
 }
 
 void decode_letter(){ //обратно декодируем буквы
+  bool isEditing = false;
   for(int i=0; i < index; i++){ //считываем
     if (duration[i] == DASH_DURATION and color[i] == SPACE){ //если была пауза после букв
       String code = ""; 
