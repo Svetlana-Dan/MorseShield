@@ -27,10 +27,10 @@ void loop() {
 }
 
 void decode_letter(){ //обратно декодируем буквы
-  for(int i=0; i < index; i++){ 
-    if (duration[i] == DASH_DURATION and color[i] == SPACE){ 
+  for(int i=0; i < index; i++){ //считываем
+    if (duration[i] == DASH_DURATION and color[i] == SPACE){ //если была пауза после букв
       String code = ""; 
-      for (int j=0; j < i; j++){ 
+      for (int j=0; j < i; j++){ //сбор кода буквы
           if (duration[j] == DASH_DURATION and color[j] == DATA){ 
             code += '-'; 
           } 
@@ -41,11 +41,24 @@ void decode_letter(){ //обратно декодируем буквы
       } 
       duration[i] = 0; 
       for (int iletter=0; iletter < NLETTRERS; iletter++){ 
-        if (code == CODES[iletter]){ 
-          Serial.println(LETTERS[iletter]); 
+        if (code == CODES[iletter]){ //соотносим код с буквой
+          isEditing = true;
+          message += LETTERS[iletter];
+          Serial.print(message);
         } 
       } 
     } 
+    if (isEditing && isEndWord)	// Если мы доставали все буквы из буфера, то
+    {
+      Serial.print("\n");	// Конец данной передачи
+      index = 0;	// Сброс буфера
+      isEndWord = false;	// Сброс флага
+    }
+  }
+  if (isEditing)	// Если не конец слова, но мы выводили букву, то сброс буфера и сообщения
+  {
+  	index = 0;
+    message = "";
   } 
 }
 
@@ -59,10 +72,20 @@ void fill_arrays(){  //чтобы буквы приходили полность
     index++; 
   } 
   if (current == SPACE_LEVEL and previous == DATA_LEVEL){ 
+    isEndWord = false;
     start_space = millis(); 
     duration[index] = int((millis() - start_data + 0.5 * TU) / TU); 
     color[index] = DATA;  (синие(точки-тире))
     index++; 
   } 
+  else if (isEndWord == false && current == SPACE_LEVEL && previous == SPACE_LEVEL){
+    long temp = millis() - start_space;	
+    if (temp > TU * WORD_DURATION)	
+    {
+    	isEndWord = true;
+    	duration[index] = WORD_DURATION;
+      	index++;	
+  	}
+  }
   previous = current; 
 } 
