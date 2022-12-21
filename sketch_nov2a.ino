@@ -33,7 +33,7 @@ void loop() {  //считывает инф с монитору ищет и де�
     if(letter == ' '){ //если пробел идем к сл слову
       send_word();
     }
-    else{  //декодируем
+    else{  //кодируем
       for(int iletter; iletter<NLETTERS; iletter++){ 
         if(letter == LETTERS[iletter]){ 
           String code = CODES[iletter]; 
@@ -44,7 +44,7 @@ void loop() {  //считывает инф с монитору ищет и де�
   } 
 } 
 
-void send_letter(String code){  //смотрим что пришло то декодируем символы как на схеме
+void send_letter(String code){  //смотрим что пришло то кодируем символы как на схеме
   int code_len = code.length(); 
   for(int i=0; i<code_len; i++){ 
     char symbol = code[i]; 
