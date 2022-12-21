@@ -25,15 +25,15 @@ void setup() {
   Serial.begin(9600); 
 } 
 
-void loop() { 
+void loop() {  //считывает инф с монитору ищет и декодирует
 //available() показывает сколько символов пришло 
   if(Serial.available() >= 1){ 
     Serial.println(code);
     char letter = Serial.read();
-    if(letter == ' '){
+    if(letter == ' '){ //если пробел идем к сл слову
       send_word();
     }
-    else{ 
+    else{  //декодируем
       for(int iletter; iletter<NLETTERS; iletter++){ 
         if(letter == LETTERS[iletter]){ 
           String code = CODES[iletter]; 
@@ -44,7 +44,7 @@ void loop() {
   } 
 } 
 
-void send_letter(String code){ 
+void send_letter(String code){  //смотрим что пришло то декодируем символы как на схеме
   int code_len = code.length(); 
   for(int i=0; i<code_len; i++){ 
     char symbol = code[i]; 
@@ -62,7 +62,7 @@ void send_letter(String code){
   delay((LETTER_DURATION - 1)* TU ); 
 }
 
-void send_word(){
+void send_word(){ //если пришел пробел начинает отпр сл слово
   digitalWrite(DATA_PIN, SPACE_LEVEL);
   delay((WORD_DURATION - LETTER_DURATION) * TU);
   Serial.print(" ");
