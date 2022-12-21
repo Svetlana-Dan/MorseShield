@@ -26,7 +26,7 @@ void loop() {
   
 }
 
-void decode_letter(){ 
+void decode_letter(){ //обратно декодируем буквы
   for(int i=0; i < index; i++){ 
     if (duration[i] == DASH_DURATION and color[i] == SPACE){ 
       String code = ""; 
@@ -50,7 +50,7 @@ void decode_letter(){
 }
 
 
-void fill_arrays(){ 
+void fill_arrays(){  //чтобы буквы приходили полностью, проверяет начались или закончились данные
   int current = digitalRead(DATA_PIN); 
   if (current == DATA_LEVEL and previous == SPACE_LEVEL){ 
     start_data = millis(); 
