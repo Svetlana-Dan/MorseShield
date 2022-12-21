@@ -5,6 +5,8 @@
 #define DATA true
 #define DASH_DURATION 3
 #define DOT_DURATION 1
+#define LETTER_DURATION 3	
+#define WORD_DURATION 7	
 #define TU 100
 
 long start_data, start_space;
@@ -18,6 +20,8 @@ char LETTERS[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M
 // String CODES[] = {".-", "--.."};
 // char LETTERS[] = {'A', 'Z'};
 int NLETTERS = 26; 
+bool isEndWord = false;
+String message = "";
 
 void loop() {
   // put your main code here, to run repeatedly:
