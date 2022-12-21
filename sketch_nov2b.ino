@@ -55,13 +55,13 @@ void fill_arrays(){  //чтобы буквы приходили полность
   if (current == DATA_LEVEL and previous == SPACE_LEVEL){ 
     start_data = millis(); 
     duration[index] = int((millis() - start_space + 0.5 * TU) / TU); 
-    color[index] = SPACE; 
+    color[index] = SPACE; //красные(расстояние)
     index++; 
   } 
   if (current == SPACE_LEVEL and previous == DATA_LEVEL){ 
     start_space = millis(); 
     duration[index] = int((millis() - start_data + 0.5 * TU) / TU); 
-    color[index] = DATA; 
+    color[index] = DATA;  (синие(точки-тире))
     index++; 
   } 
   previous = current; 
