@@ -59,7 +59,7 @@ void send_letter(String code){  //смотрим что пришло то код
     digitalWrite(DATA_PIN, SPACE_LEVEL); 
     delay(TU); 
   } 
-  delay((LETTER_DURATION - 1)* TU ); 
+  delay((LETTER_DURATION - 1)* TU ); //выжидание между буквами
 }
 
 void send_word(){ //если пришел пробел начинает отпр сл слово
